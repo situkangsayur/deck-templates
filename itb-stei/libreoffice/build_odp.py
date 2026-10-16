@@ -138,6 +138,9 @@ def named_graphic_styles():
                align="center", valign="middle"),
         gstyle("Nomor-bagian", "ITB Nomor bagian", size=101, color=C["putih"], bold=True, align="center"),
         gstyle("Label-bagian", "ITB Label bagian", size=14.2, color=C["putih"], align="center"),
+        gstyle("Penutup-nama", "ITB Penutup - nama dan NIM", size=15.8, color=C["putih"], bold=True, align="center"),
+        gstyle("Penutup-kontak", "ITB Penutup - email dan web", size=12.7, color=C["putih"], bold=True,
+               align="center"),
         gstyle("Judul-penulis", "ITB Halaman judul - penulis", size=14.2),
         gstyle("Judul-pembimbing", "ITB Halaman judul - pembimbing", size=12.7),
         gstyle("Judul-institusi", "ITB Halaman judul - institusi", size=11.1, lh=0.51),
@@ -238,6 +241,8 @@ AUTO_STYLES = f"""
  draw:stroke="none" draw:fill="solid" draw:fill-color="{C['biru']}"/></style:style>
 <style:style style:name="Mgr-emas" style:family="graphic" style:parent-style-name="standard"><style:graphic-properties
  draw:stroke="none" draw:fill="solid" draw:fill-color="{C['emas']}"/></style:style>
+<style:style style:name="Mgr-putih" style:family="graphic" style:parent-style-name="standard"><style:graphic-properties
+ draw:stroke="none" draw:fill="solid" draw:fill-color="{C['putih']}"/></style:style>
 <style:style style:name="Mgr-jalur" style:family="graphic" style:parent-style-name="standard"><style:graphic-properties
  draw:stroke="none" draw:fill="solid" draw:fill-color="{C['jalur']}"/></style:style>
 <style:style style:name="Mgr-footer" style:family="graphic" style:parent-style-name="standard"><style:graphic-properties
@@ -317,7 +322,10 @@ def masters():
 
     penutup = (mrect("Mgr-biru", 0, 0, W, H) + mrect("Mgr-footer", 0, FY, W, FT)
                + mline("Mgr-garis-emas", 0, FY - 0.02, W, FY - 0.02)
-               + placeholder("Penutup", "title", 0, 5.5, W, 3.0)
+               + placeholder("Penutup", "title", 0, 3.33, W, 1.1)
+               # logo ITB di atas lingkaran putih agar terlihat di latar biru (sama dengan contoh.tex)
+               + f'<draw:ellipse draw:style-name="Mgr-putih" draw:layer="backgroundobjects" {geo(11.43, 7.86, 2.54, 2.54)}/>'
+               + image(11.589, 8.019, 2.222)
                + f'<draw:frame presentation:style-name="Mgr-ft" draw:layer="backgroundobjects" {geo(0.32, FY - 0.07, 16, FT)} '
                  'presentation:class="footer"><draw:text-box><text:p><presentation:footer/></text:p></draw:text-box></draw:frame>'
                + f'<draw:frame presentation:style-name="Mgr-ft" draw:layer="backgroundobjects" {geo(W - 4.32, FY - 0.07, 4, FT)} '
@@ -331,7 +339,7 @@ def styles_xml():
     pres = (presentation_styles("Judul", 22.8, C["teks"], title_valign="top")
             + presentation_styles("Isi", 19, C["putih"])
             + presentation_styles("Bagian", 27.3, C["tua"])
-            + presentation_styles("Penutup", 22.8, C["putih"], title_align="center"))
+            + presentation_styles("Penutup", 22.8, C["putih"], title_valign="top", title_align="center"))
     return (f'<?xml version="1.0" encoding="UTF-8"?><office:document-styles {NS}>{font_decls()}'
             f'<office:styles>{marker}{named_graphic_styles()}{pres}{LAYOUTS}</office:styles>'
             f'<office:automatic-styles>{AUTO_STYLES}</office:automatic-styles>'
@@ -687,7 +695,9 @@ def build_pages():
                                 ([6.49, 7.48, 8.19, 8.90], [6.28, 7.28, 8.14, 8.85, 9.70]), rows, kanan={1, 2}))
 
     # 10. Penutup
-    page("Terima kasih", "Penutup", "AL3T19", ph_title("Penutup", "Terima kasih", 0, 5.5, W, 3.0)
+    page("Terima kasih", "Penutup", "AL3T19", ph_title("Penutup", "Terima kasih", 0, 3.33, W, 1.1)
+         + textbox("Penutup-nama", 0, 4.96, W, 0.8, "Nama Anda · NIM")
+         + textbox("Penutup-kontak", 0, 6.38, W, 0.7, "nim@mahasiswa.itb.ac.id · situs-anda.id")
          + nomor(f"{N_ISI}/{N_ISI}"), dp="dp-isi-tetap")
 
 

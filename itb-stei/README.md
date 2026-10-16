@@ -60,7 +60,8 @@ Cara pakai:
 - Pasang template: **Berkas → Templat → Kelola Templat → Impor**, pilih `tema-itb.otp`.
   Atau cukup buka `tema-itb.otp`.
 - Master slide: **ITB Judul**, **ITB Isi** (pita judul, logo, footer), **ITB Bagian** (pemisah bagian),
-  **ITB Penutup** (slide biru penutup). Ganti lewat **Slide → Ubah Master Slide**.
+  **ITB Penutup** (slide biru penutup dengan logo ITB berlatar lingkaran putih). Di slide penutup contoh, isi
+  nama · NIM serta email · web Anda (gaya **ITB Penutup - nama dan NIM** / **ITB Penutup - email dan web**). Ganti lewat **Slide → Ubah Master Slide**.
 - Gaya bentuk dan teks berawalan **ITB** ada di panel Gaya (F11) → Gaya Gambar.
 - Footer: **Sisip → Kepala dan Kaki** → kolom Footer → **Terapkan ke Semua**.
 
