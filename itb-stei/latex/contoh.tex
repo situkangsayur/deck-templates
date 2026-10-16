@@ -1,0 +1,121 @@
+% !TeX program = xelatex
+% Contoh pemakaian tema-itb.sty. Salin folder ini, ganti isi, lalu kompilasi:
+%   latexmk -xelatex contoh.tex      (atau: xelatex contoh.tex dua kali)
+\documentclass[aspectratio=169, 10pt]{beamer}
+\usepackage[indonesian]{babel}
+\usepackage{tema-itb}
+
+\title{Judul Presentasi Anda}
+\subtitle{Subjudul, mis.\ tinjauan pustaka sistematis (Kitchenham), 2021--2026}
+\author[Nama Anda]{Nama Anda \textperiodcentered\ NIM \\[1mm]
+  {\footnotesize Promotor: Prof.\ Dr.\ Nama Promotor \\
+   Ko-promotor: Dr.\ Nama Ko-promotor}}
+\institute{Program Doktor Teknik Elektro dan Informatika\\ Sekolah Teknik Elektro dan Informatika, Institut Teknologi Bandung}
+\date{Oktober 2026}
+% Teks footer bawaan: nama singkat · judul singkat · STEI ITB. Ubah bila perlu:
+% \renewcommand{\teksfooter}{Nama Anda \textperiodcentered\ Mata Kuliah \textperiodcentered\ STEI ITB}
+
+\begin{document}
+\maketitle
+
+% =====================================================================
+\begin{frame}{Agenda}
+  \centering
+  \begin{tikzpicture}
+  \foreach \i/\t/\x/\y in {1/Latar belakang/0/0, 2/Masalah dan pertanyaan penelitian/0/-1.1, 3/Metode/0/-2.2,
+                           4/Hasil RQ1/0/-3.3, 5/Hasil RQ2/7.2/0, 6/Hasil RQ3/7.2/-1.1,
+                           7/Celah riset dan model/7.2/-2.2, 8/Validitas dan langkah berikutnya/7.2/-3.3} {
+    \node[kotakpucat] at (\x,\y) {\t};
+    \node[circle, fill=itbBiru, text=white, font=\small\bfseries, minimum size=0.62cm] at (\x-3.2,\y) {\i};
+  }
+  \end{tikzpicture}
+\end{frame}
+
+% =====================================================================
+\section{Latar belakang}
+
+\begin{frame}{Slide berisi butir}
+  \begin{itemize}
+    \item Butir pertama dengan \istilah{istilah kunci} dan \asing{istilah asing}.
+    \item Butir kedua dengan \alert{penekanan merah}.
+    \begin{itemize}
+      \item Sub-butir memakai tanda emas.
+    \end{itemize}
+    \item Butir ketiga, cukup satu gagasan per butir.
+  \end{itemize}
+  \sumber{Penulis, Tahun; Penulis lain, Tahun}
+  \begin{intinya}
+    Satu kalimat yang merangkum pesan utama slide ini.
+  \end{intinya}
+\end{frame}
+
+\begin{frame}{Slide dua kolom dengan kartu}
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+      \kartu{\linewidth}{Topik}{Isi kartu pertama. Pakai \textbf{tebal} untuk kata yang penting.}
+      \kartu[itbEmas]{\linewidth}{Kondisi saat ini}{Kartu dengan kepala emas untuk konteks atau catatan.}
+    \column{0.5\textwidth}
+      \kartu[itbBiruTua]{\linewidth}{Pertanyaan penelitian}{%
+        \chip{1}{Pertanyaan pertama.}\\[2mm]
+        \chip{2}{Pertanyaan kedua.}\\[2mm]
+        \chip{3}{Pertanyaan ketiga.}}
+      \kartu[itbMerah]{\linewidth}{Keterbatasan}{Kartu merah untuk risiko atau keterbatasan.}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Temuan utama sekilas}
+  \centering
+  \begin{tikzpicture}[x=3.35cm, y=2.9cm]
+    \node[tile] at (0,0) {\tilenum{22}{104}\\[4pt]\scriptsize makalah primer terpilih};
+    \node[tile=itbBiruTua] at (1,0) {\tilenum{22}{12}\\[4pt]\scriptsize label angka kedua};
+    \node[tile] at (2,0) {\tilenum{22}{6\,/\,17}\\[4pt]\scriptsize rasio atau perbandingan};
+    \node[tile=itbMerah] at (3,0) {\tilenum{22}{0}\\[4pt]\scriptsize temuan negatif};
+    \node[tile=itbBiruTua] at (0,-1) {\tilenum{22}{27}\\[4pt]\scriptsize label angka};
+    \node[tile] at (1,-1) {\tilenum{22}{3}\\[4pt]\scriptsize label angka};
+    \node[tile=itbBiruTua] at (2,-1) {\tilenum{15}{USD\,7,3 jt}\\[4pt]\scriptsize nilai lebar, huruf lebih kecil};
+    \node[tile=itbEmas] at (3,-1) {\tilenum{22}{8}\\[4pt]\scriptsize celah riset};
+  \end{tikzpicture}
+\end{frame}
+
+% =====================================================================
+\section{Metode}
+
+\begin{frame}{Diagram alur}
+  \centering
+  \begin{tikzpicture}
+    \node[tahap] (a) at (0,0) {Klarifikasi\\ Riset};
+    \node[tahap=itbBiru!55] (b) at (3.6,0) {Studi\\ Deskriptif I};
+    \node[tahap=itbBiru!55] (c) at (7.2,0) {Studi\\ Preskriptif};
+    \node[tahap=itbBiru!55] (d) at (10.8,0) {Studi\\ Deskriptif II};
+    \foreach \p/\q in {a/b,b/c,c/d} \draw[panah] (\p) -- (\q);
+    \foreach \x/\s in {0/Semester 1, 3.6/Semester 2, 7.2/Semester 3--4, 10.8/Semester 5--6}
+      \node[font=\scriptsize, text=itbAbu] at (\x,-0.95) {\s};
+    \draw[itbEmas, line width=2pt, rounded corners=4pt] (-1.75,0.8) rectangle (1.75,-1.25);
+    \node[fill=itbEmas, text=black, font=\scriptsize\bfseries, rounded corners=2pt] at (0,1.05) {tahap ini};
+  \end{tikzpicture}
+  \vspace{4mm}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}\kartu{\linewidth}{Luaran 1}{Penjelasan luaran pertama.}\end{column}
+    \begin{column}{0.32\textwidth}\kartu{\linewidth}{Luaran 2}{Penjelasan luaran kedua.}\end{column}
+    \begin{column}{0.32\textwidth}\kartu{\linewidth}{Luaran 3}{Penjelasan luaran ketiga.}\end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Tabel}
+  \centering\small
+  \begin{tabular}{@{}lrrl@{}}
+    \toprule
+    \textbf{Tahap} & \textbf{Jumlah} & \textbf{Sisa} & \textbf{Catatan} \\
+    \midrule
+    Pencarian basis data & 1.250 & 1.250 & Scopus, IEEE, ACM \\
+    Saring judul/abstrak & $-$980 & 270 & kriteria inklusi \\
+    Baca teks lengkap & $-$166 & \textbf{104} & penilaian kualitas \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+\begin{frame}[standout]
+  Terima kasih
+\end{frame}
+
+\end{document}

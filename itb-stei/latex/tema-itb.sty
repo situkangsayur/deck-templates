@@ -1,0 +1,134 @@
+% tema-itb.sty -- tema Beamer bergaya ITB (Metropolis + biru ITB #005AAB, aksen emas, logo ITB).
+% Diturunkan dari slide SLR (bimbingan/docs/slr/slides/common/preamble.tex).
+% Pakai:   \documentclass[aspectratio=169, 10pt]{beamer}
+%          \usepackage{tema-itb}
+% Kompilasi dengan XeLaTeX atau LuaLaTeX (dua kali, karena TikZ overlay):  latexmk -xelatex contoh.tex
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tema-itb}[2026/10/16 Tema slide ITB]
+
+\usetheme[progressbar=frametitle, numbering=fraction, block=fill]{metropolis}
+\RequirePackage{fontspec}
+\RequirePackage{amsmath, amssymb}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric, shapes.misc, fit, backgrounds, calc}
+
+% Fira dimuat lewat paket TeX Live (bukan nama font sistem) agar jalan di mesin mana pun.
+\RequirePackage[sfdefault, book]{FiraSans}
+\RequirePackage[scale=0.88]{FiraMono}
+
+% ---------------------------------------------------------------------
+% Palet: biru ITB (dari logo, #005AAB) dengan aksen emas (STEI ITB).
+\definecolor{itbBiru}{HTML}{005AAB}
+\definecolor{itbBiruTua}{HTML}{003D75}
+\definecolor{itbBiruMuda}{HTML}{4B75BA}
+\definecolor{itbEmas}{HTML}{E8A317}
+\definecolor{itbAbu}{HTML}{4A5360}
+\definecolor{itbLatar}{HTML}{FAFBFD}
+\definecolor{itbMerah}{HTML}{B4321C}
+\colorlet{itbPucat}{itbBiru!8}
+
+\setbeamercolor{normal text}{fg=black!87, bg=itbLatar}
+\setbeamercolor{alerted text}{fg=itbMerah}
+\setbeamercolor{example text}{fg=itbBiruMuda}
+\setbeamercolor{frametitle}{bg=itbBiru, fg=white}
+\setbeamercolor{palette primary}{bg=itbBiru, fg=white}
+\setbeamercolor{progress bar}{fg=itbEmas}
+\setbeamercolor{title separator}{fg=itbEmas}
+\setbeamercolor{progress bar in head/foot}{fg=itbEmas}
+\setbeamercolor{progress bar in section page}{fg=itbEmas}
+\setbeamercolor{block title}{bg=itbBiru!12, fg=itbBiru}
+\setbeamercolor{block body}{bg=itbBiru!5}
+\setbeamercolor{section title}{fg=itbBiru}
+\metroset{titleformat=regular}
+
+\setbeamertemplate{itemize item}{\color{itbBiruMuda}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{itbEmas}$-$}
+
+% ---------------------------------------------------------------------
+% Bagian yang bisa diubah pemakai (pakai \renewcommand di dokumen):
+\newcommand{\logoitb}{itb-logo.png}          % berkas logo
+\newcommand{\teksfooter}{\insertshortauthor\ \textperiodcentered\ \insertshorttitle\ \textperiodcentered\ STEI ITB}
+\newcommand{\namabagian}{Bagian}             % label kecil di halaman bagian ("Part" untuk bahasa Inggris)
+
+% ---------------------------------------------------------------------
+% Gaya teks singkat.
+\newcommand{\istilah}[1]{\textcolor{itbBiru}{\textbf{#1}}}           % istilah kunci
+\newcommand{\asing}[1]{\textit{#1}}                                   % istilah asing
+\newcommand{\sumber}[1]{\par\vspace{0.4em}{\scriptsize\color{itbAbu} Sumber: #1}}
+
+% Kotak "intinya" untuk merangkum satu gagasan: \begin{intinya}[Judul] ... \end{intinya}
+\newenvironment{intinya}[1][Intinya]{\begin{block}{#1}}{\end{block}}
+
+% ---------------------------------------------------------------------
+% Footer: pita biru muda dengan garis emas, teks kiri, nomor halaman kanan.
+\setbeamercolor{footline}{fg=itbBiru, bg=itbBiru!17}
+\setbeamerfont{page number in head/foot}{size=\scriptsize}
+\setbeamertemplate{frame footer}{\teksfooter}
+\setbeamertemplate{footline}{%
+  {\color{itbEmas}\hrule height 0.7pt}%
+  \begin{beamercolorbox}[wd=\paperwidth, ht=2.4ex, dp=1.6ex, leftskip=2.2ex, rightskip=2.2ex]{footline}%
+    \usebeamerfont{page number in head/foot}%
+    \usebeamertemplate*{frame footer}%
+    \hfill%
+    \usebeamertemplate*{frame numbering}%
+  \end{beamercolorbox}%
+}
+
+% Logo ITB: halaman judul (kanan bawah) dan pojok kanan atas setiap judul frame.
+\titlegraphic{\begin{tikzpicture}[remember picture, overlay]
+  \node[anchor=south east] at ([xshift=-7mm, yshift=24mm]current page.south east) {\includegraphics[height=1.7cm]{\logoitb}};
+\end{tikzpicture}}
+\addtobeamertemplate{frametitle}{}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north east, inner sep=3pt] at (current page.north east) {\includegraphics[height=0.75cm]{\logoitb}};
+  \end{tikzpicture}}
+
+% Halaman bagian: pita biru di kiri dengan nomor bagian, garis emas, judul di kanan.
+\setbeamertemplate{section page}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[itbBiru] (current page.north west) rectangle ([xshift=0.36\paperwidth]current page.south west);
+    \fill[itbEmas] ([xshift=0.36\paperwidth]current page.north west) rectangle ([xshift=0.365\paperwidth]current page.south west);
+    \node[text=white, font=\fontsize{64}{64}\selectfont\bfseries] at ([xshift=0.18\paperwidth, yshift=0.06\paperheight]current page.west) {\insertsectionnumber};
+    \node[text=white!85, font=\small] at ([xshift=0.18\paperwidth, yshift=-0.12\paperheight]current page.west) {\namabagian\ \insertsectionnumber};
+    \node[anchor=west, text=itbBiruTua, font=\LARGE\bfseries, text width=0.56\paperwidth, align=left] at ([xshift=0.41\paperwidth]current page.west) {\hyphenpenalty=10000\exhyphenpenalty=10000\uchyph=0 \insertsectionhead\par};
+    \node[anchor=south east, inner sep=8pt] at (current page.south east) {\includegraphics[height=1.0cm]{\logoitb}};
+  \end{tikzpicture}}
+
+% ---------------------------------------------------------------------
+% Komponen desain.
+% Ubin angka: \stat[warna]{angka besar}{label}; \statw untuk nilai lebar (huruf lebih kecil).
+\newcommand{\stat}[3][itbBiru]{%
+  \begin{tikzpicture}\node[fill=#1, text=white, rounded corners=5pt, minimum width=2.6cm,
+    inner sep=3pt]{\parbox[c][2.4cm][c]{2.4cm}{\centering{\fontsize{20}{22}\selectfont\bfseries #2}\\[3pt]{\scriptsize\linespread{0.9}\selectfont #3}}};\end{tikzpicture}}
+\newcommand{\statw}[3][itbBiru]{%
+  \begin{tikzpicture}\node[fill=#1, text=white, rounded corners=5pt, minimum width=2.6cm,
+    inner sep=3pt]{\parbox[c][2.4cm][c]{2.4cm}{\centering{\fontsize{14}{16}\selectfont\bfseries #2}\\[3pt]{\scriptsize\linespread{0.9}\selectfont #3}}};\end{tikzpicture}}
+% Kartu berkepala warna: \kartu[warna]{lebar}{judul}{isi}; selalu menjadi paragraf sendiri.
+\newcommand{\kartu}[4][itbBiru]{%
+  \par\noindent\begin{tikzpicture}
+    \node[draw=#1, line width=0.8pt, fill=white, rounded corners=4pt, text width=#2-8pt, inner sep=5pt, align=left,
+          font=\footnotesize] (b) {\hyphenpenalty=10000 #4};
+    \node[fill=#1, text=white, rounded corners=3pt, anchor=south west, font=\footnotesize\bfseries, inner sep=3pt,
+          text width=#2-14pt] at ([yshift=-1pt]b.north west) {#3};
+  \end{tikzpicture}\par\vspace{1.2mm}}
+\let\card\kartu % nama lama dari slide SLR
+% Ubin berukuran tetap untuk grid: gaya node 'tile' (lebar dan tinggi sama untuk semua ubin).
+\tikzset{tile/.style={fill=#1, text=white, rounded corners=5pt, minimum width=3.0cm, minimum height=2.65cm,
+  text width=2.75cm, align=center, inner sep=3pt, execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  tile/.default=itbBiru}
+\newcommand{\tilenum}[2]{{\fontsize{#1}{#1}\selectfont\bfseries #2}}
+% Bulatan bernomor: \chip{n}{teks}
+\newcommand{\chip}[2]{%
+  \begin{tikzpicture}[baseline=(c.base)]\node[circle, fill=itbBiru, text=white, font=\scriptsize\bfseries, inner sep=1.5pt, minimum size=0.48cm] (c) {#1};\end{tikzpicture}\ #2}
+% Gaya TikZ siap pakai untuk diagram alur.
+\tikzset{
+  tahap/.style={fill=#1, text=white, minimum width=3.2cm, minimum height=1.25cm, align=center, font=\small\bfseries, rounded corners=3pt},
+  tahap/.default=itbBiru,
+  panah/.style={-{Stealth[length=3mm]}, line width=1.4pt, itbBiru},
+  kotakpucat/.style={fill=itbPucat, draw=itbBiru!40, rounded corners=4pt, text width=5.0cm, minimum height=0.85cm, align=left, inner sep=5pt, font=\small, execute at begin node={\hyphenpenalty=10000}},
+}
+
+\endinput
