@@ -800,19 +800,6 @@ def pptx(odp):
     print("tulis", dst.name)
 
 
-def potx(src, dst):
-    """Template PowerPoint (.potx) = .pptx yang sama dengan jenis isi bagian utama 'template'."""
-    if not src.exists():
-        return
-    with zipfile.ZipFile(src) as zi, zipfile.ZipFile(dst, "w", zipfile.ZIP_DEFLATED) as zo:
-        for item in zi.infolist():
-            data = zi.read(item.filename)
-            if item.filename == "[Content_Types].xml":
-                data = data.replace(b"presentationml.presentation.main+xml", b"presentationml.template.main+xml")
-            zo.writestr(item, data)
-    print("tulis", dst.name)
-
-
 if __name__ == "__main__":
     styles = styles_xml()  # dulu: mengisi GAYA_PAD yang dipakai slide contoh
     content = content_xml()
@@ -821,4 +808,3 @@ if __name__ == "__main__":
     write(HERE / "tema-itb.otp", "application/vnd.oasis.opendocument.presentation-template", "Tema slide ITB",
           content, styles)
     pptx(HERE / "contoh-itb.odp")
-    potx(HERE / "contoh-itb.pptx", HERE / "tema-itb.potx")

@@ -1,11 +1,11 @@
 # Deck templates
 
 Kumpulan template slide, masing-masing dalam dua bentuk: **LaTeX Beamer** dan **LibreOffice Impress**
-(`.otp` / `.odp`) dan **PowerPoint** (`.potx` / `.pptx`). Satu template = satu subfolder.
+(`.otp` / `.odp`) dan **PowerPoint** (`.pptx`). Satu template = satu subfolder.
 
 | Template | Gaya | LaTeX | Impress / PowerPoint | Pratinjau |
 |---|---|---|---|---|
-| [`itb-stei/`](itb-stei/) | biru ITB `#005AAB`, aksen emas, logo ITB, 16:9 (Metropolis) | `latex/tema-itb.sty` | `libreoffice/tema-itb.otp`, `libreoffice/tema-itb.potx` | [LaTeX](itb-stei/preview/latex.png) · [Impress](itb-stei/preview/libreoffice.png) |
+| [`itb-stei/`](itb-stei/) | biru ITB `#005AAB`, aksen emas, logo ITB, 16:9 (Metropolis) | `latex/tema-itb.sty` | `libreoffice/tema-itb.otp`, `libreoffice/contoh-itb.pptx` | [LaTeX](itb-stei/preview/latex.png) · [Impress](itb-stei/preview/libreoffice.png) |
 
 ## Struktur tiap template
 

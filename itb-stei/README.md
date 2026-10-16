@@ -7,7 +7,7 @@ Bebas dibagikan ke teman; isi contoh sudah generik.
 | Folder | Isi | Untuk siapa |
 |---|---|---|
 | `latex/` | `tema-itb.sty`, `contoh.tex`, `contoh.pdf`, `itb-logo.png` | yang menulis slide di LaTeX |
-| `libreoffice/` | `tema-itb.otp` (template Impress), `tema-itb.potx` (template PowerPoint), `contoh-itb.odp`, `contoh-itb.pptx`, `build_odp.py` | yang memakai LibreOffice Impress / PowerPoint |
+| `libreoffice/` | `tema-itb.otp` (template Impress), `contoh-itb.odp`, `contoh-itb.pptx` (template PowerPoint), `build_odp.py` | yang memakai LibreOffice Impress / PowerPoint |
 | `fonts/` | Fira Sans (Book, Bold, miring), `OFL.txt` | dipasang untuk PowerPoint |
 
 ## LaTeX
@@ -72,12 +72,11 @@ Batas yang tidak bisa ditiru Impress secara otomatis (di slide contoh sudah diti
 - **Penataan huruf TeX**: TeX sedikit meregangkan spasi antar-kata dan menggeser teks mengikuti bentuk
   huruf. Di slide contoh ini ditiru per elemen; teks baru memakai spasi biasa (selisih ≤ 1–2 mm).
 
-`.pptx` / `.potx`: `tema-itb.potx` adalah template PowerPoint (buka langsung, atau simpan ke folder
-*Custom Office Templates*); isinya sama dengan `contoh-itb.pptx`. Untuk PowerPoint, pasang dulu font di folder `fonts/` (lisensi SIL OFL, `fonts/OFL.txt`).
+`.pptx`: `contoh-itb.pptx` adalah versi PowerPoint (master slide dan slide contoh ikut). Untuk PowerPoint, pasang dulu font di folder `fonts/` (lisensi SIL OFL, `fonts/OFL.txt`).
 PowerPoint tidak mendukung angka gaya lama, jadi di `.pptx` angkanya angka biasa. Kolom terakhir tabel
 juga dilebarkan 1,5 mm agar tidak terbungkus. Hasil `.pptx` diperiksa lewat LibreOffice, belum di
 PowerPoint asli.
 
 Untuk mengubah warna atau ukuran secara massal, sunting `libreoffice/build_odp.py` lalu jalankan
 `python3 build_odp.py`. Hanya butuh Python 3, ditambah LibreOffice untuk ekspor `.pptx`. Skrip ini
-membangun ulang `.otp`, `.odp`, `.pptx` dan `.potx`.
+membangun ulang `.otp`, `.odp` dan `.pptx`.
