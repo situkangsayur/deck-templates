@@ -41,25 +41,42 @@ Ubah footer dengan `\renewcommand{\teksfooter}{...}`; untuk slide berbahasa Ingg
 
 ## LibreOffice Impress
 
-`libreoffice/contoh-itb.odp` berisi 10 slide yang sama dengan `latex/contoh.pdf`. Posisi, ukuran huruf dan
-warnanya diukur dari PDF Beamer, jadi tampilannya sama.
+`libreoffice/contoh-itb.odp` adalah tiruan **persis** dari `latex/contoh.pdf` (LaTeX tidak diubah).
+Setiap posisi, ukuran huruf, warna, garis dan jarak diukur dari PDF Beamer, lalu hasil ODP dibandingkan
+kata per kata dan piksel per piksel. Selisih yang tersisa di bawah 0,5 mm.
 
-- **Font Fira Sans** (sama dengan LaTeX) sudah ditanam di `.otp`/`.odp`. Untuk `.pptx`/PowerPoint, pasang dulu
-  font di folder `fonts/` (lisensi SIL OFL, `fonts/OFL.txt`): klik dua kali tiap `.otf` → *Install*. Di Linux,
-  salin ke `~/.local/share/fonts/`.
+Elemen khas yang ikut:
+- **Butir**: ▶ biru muda, sub-butir − emas, ukuran dan indentasi seperti Beamer.
+- **Dua kolom dengan kartu**: kepala berwarna (biru, biru tua, emas, merah) di atas badan bergaris.
+- **Kotak**: *intinya* (blok Metropolis), kotak pucat agenda, chip bernomor, ubin angka, tahap + panah,
+  sorot emas.
+- **Tabel**: objek tabel Impress sungguhan bergaya booktabs. Garis atas dan bawah tebal, garis bawah kepala
+  tipis, tanpa garis tegak, kolom angka rata kanan, angka berlebar sama seperti Metropolis. Salin tabel
+  contoh untuk membuat tabel baru, lalu tambah baris atau kolom seperti biasa.
+- **Font Fira Sans** dengan angka gaya lama, sama dengan paket `FiraSans` di LaTeX. Font sudah ditanam di
+  `.otp`/`.odp`.
+
+Cara pakai:
 - Pasang template: **Berkas → Templat → Kelola Templat → Impor**, pilih `tema-itb.otp`.
-  Atau cukup buka `tema-itb.otp`; LibreOffice membuat presentasi baru darinya.
-- Tiga master slide: **ITB Judul**, **ITB Isi** (pita judul, logo, footer, nomor halaman "n/N"),
-  **ITB Bagian** (pemisah bagian). Ganti lewat **Slide → Ubah Master Slide**.
-- Komponen (kartu, ubin angka, kotak intinya, chip, tahap, panah, sorot emas, tabel bergaris) ada di
-  slide contoh. Salin-tempel, atau pakai gaya gambar berawalan **ITB** di panel Gaya (F11).
-- Garis progres emas di bawah pita judul adalah bentuk biasa (gaya **ITB Garis progres**), bukan
-  otomatis seperti di Beamer. Atur lebarnya per slide kalau ingin dipakai.
+  Atau cukup buka `tema-itb.otp`.
+- Master slide: **ITB Judul**, **ITB Isi** (pita judul, logo, footer), **ITB Bagian** (pemisah bagian),
+  **ITB Penutup** (slide biru penutup). Ganti lewat **Slide → Ubah Master Slide**.
+- Gaya bentuk dan teks berawalan **ITB** ada di panel Gaya (F11) → Gaya Gambar.
 - Footer: **Sisip → Kepala dan Kaki** → kolom Footer → **Terapkan ke Semua**.
 
-Perbedaan yang tersisa dibanding LaTeX: nomor halaman Impress menghitung semua slide, sedangkan
-Beamer hanya menghitung frame isi. Di `.pptx` angka tampil sebagai angka biasa, bukan angka gaya lama.
+Batas yang tidak bisa ditiru Impress secara otomatis (di slide contoh sudah ditiru manual):
+- **Nomor "k/N"**: Beamer hanya menghitung frame isi. Di slide contoh nomornya ditulis tetap; slide baru
+  memakai nomor slide otomatis dari master.
+- **Garis progres emas**: di Beamer otomatis. Di Impress bentuknya biasa (gaya **ITB Garis progres**), jadi
+  lebarnya diatur per slide.
+- **Penataan huruf TeX**: TeX sedikit meregangkan spasi antar-kata dan menggeser teks mengikuti bentuk
+  huruf. Di slide contoh ini ditiru per elemen; teks baru memakai spasi biasa (selisih ≤ 1–2 mm).
 
-Untuk mengubah warna/ukuran secara massal, sunting `libreoffice/build_odp.py` lalu jalankan
-`python3 build_odp.py`. Hanya butuh Python 3, ditambah LibreOffice untuk ekspor `.pptx`.
-Skrip ini membangun ulang `.otp`, `.odp` dan `.pptx`.
+`.pptx`: untuk PowerPoint, pasang dulu font di folder `fonts/` (lisensi SIL OFL, `fonts/OFL.txt`).
+PowerPoint tidak mendukung angka gaya lama, jadi di `.pptx` angkanya angka biasa. Kolom terakhir tabel
+juga dilebarkan 1,5 mm agar tidak terbungkus. Hasil `.pptx` diperiksa lewat LibreOffice, belum di
+PowerPoint asli.
+
+Untuk mengubah warna atau ukuran secara massal, sunting `libreoffice/build_odp.py` lalu jalankan
+`python3 build_odp.py`. Hanya butuh Python 3, ditambah LibreOffice untuk ekspor `.pptx`. Skrip ini
+membangun ulang `.otp`, `.odp` dan `.pptx`.
